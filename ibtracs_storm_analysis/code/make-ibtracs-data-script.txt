@@ -1,0 +1,37 @@
+#################################
+# Author: Wyatt Hollister
+# Date: 10/7/2019
+# Title: IBTRACS Script
+#################################
+
+curl -O ftp://eclipse.ncdc.noaa.gov/pub/ibtracs/v03r10/all/csv/year/Year.2010.ibtracs_all.v03r10.csv
+curl -O ftp://eclipse.ncdc.noaa.gov/pub/ibtracs/v03r10/all/csv/year/Year.2011.ibtracs_all.v03r10.csv
+curl -O ftp://eclipse.ncdc.noaa.gov/pub/ibtracs/v03r10/all/csv/year/Year.2012.ibtracs_all.v03r10.csv
+curl -O ftp://eclipse.ncdc.noaa.gov/pub/ibtracs/v03r10/all/csv/year/Year.2013.ibtracs_all.v03r10.csv
+curl -O ftp://eclipse.ncdc.noaa.gov/pub/ibtracs/v03r10/all/csv/year/Year.2014.ibtracs_all.v03r10.csv
+curl -O ftp://eclipse.ncdc.noaa.gov/pub/ibtracs/v03r10/all/csv/year/Year.2015.ibtracs_all.v03r10.csv
+
+### Making "ibtracs-2010-2015.csv" ###
+
+head -2 Year.2010.ibtracs_all.v03r10.csv | tail +2 > ibtracs-2010-2015.csv | cut -f 1,2,3,4,5,6,7,8,9,10,11,12 -d "," Year.2010.ibtracs_all.v03r10.csv | tail +4 >> ibtracs-2010-2015.csv | cut -f 1,2,3,4,5,6,7,8,9,10,11,12 -d "," Year.2011.ibtracs_all.v03r10.csv | tail +4 >> ibtracs-2010-2015.csv | cut -f 1,2,3,4,5,6,7,8,9,10,11,12 -d "," Year.2012.ibtracs_all.v03r10.csv | tail +4 >> ibtracs-2010-2015.csv | cut -f 1,2,3,4,5,6,7,8,9,10,11,12 -d "," Year.2013.ibtracs_all.v03r10.csv | tail +4 >> ibtracs-2010-2015.csv | cut -f 1,2,3,4,5,6,7,8,9,10,11,12 -d "," Year.2014.ibtracs_all.v03r10.csv | tail +4 >> ibtracs-2010-2015.csv | cut -f 1,2,3,4,5,6,7,8,9,10,11,12 -d "," Year.2015.ibtracs_all.v03r10.csv | tail +4 >> ibtracs-2010-2015.csv
+
+### Making "serial-numbers.txt" ###
+
+cut -f 1 -d "," ibtracs-2010-2015.csv | tail +2 | uniq > ~/Desktop/workout1/output/serial-numbers.txt
+
+### Making "records-per-year.txt" ###
+
+cut -f 2 -d "," ibtracs-2010-2015.csv | tail +2 | sort | grep "2010" ibtracs-2010-2015.csv | wc -l >> records-per-year.txt | cut -f 2 -d "," ibtracs-2010-2015.csv | tail +2 | sort | grep "2011" ibtracs-2010-2015.csv | wc -l >> records-per-year.txt | cut -f 2 -d "," ibtracs-2010-2015.csv | tail +2 | sort | grep "2012" ibtracs-2010-2015.csv | wc -l >> records-per-year.txt | cut -f 2 -d "," ibtracs-2010-2015.csv | tail +2 | sort | grep "2013" ibtracs-2010-2015.csv | wc -l >> records-per-year.txt | cut -f 2 -d "," ibtracs-2010-2015.csv | tail +2 | sort | grep "2014" ibtracs-2010-2015.csv | wc -l >> records-per-year.txt | cut -f 2 -d "," ibtracs-2010-2015.csv | tail +2 | sort | grep "2015" ibtracs-2010-2015.csv | wc -l >> records-per-year.txt
+
+### Making "basin-frequencies.txt" ###
+
+cut -f 4 -d "," ibtracs-2010-2015.csv | tail +2 | sort | uniq -c > ~/Desktop/workout1/output/basin-frequencies.txt
+
+### Making "sub-basin-frequencies.txt"
+
+cut -f 5 -d "," ibtracs-2010-2015.csv | tail +2 | sort | uniq -c > ~/Desktop/workout1/output/sub-basin-frequencies.txt
+
+
+
+
+
